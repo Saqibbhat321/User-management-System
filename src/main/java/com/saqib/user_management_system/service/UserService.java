@@ -63,32 +63,29 @@ public class UserService {
         return valid;
     }
 
-    public boolean updateUser(Long id , String name , String email , String phNo , String country) {
 
-        UserEntity entity = new UserEntity();
-        if (id != 0) {
-            entity.setId(id);
-            entity.setName(name);
-            entity.setEmail(email);
-            entity.setPhNo(phNo);
-            entity.setCountry(country);
-            repository.updateUserProfile(entity);
+    @Transactional
+    public boolean deleteUserById(Long id) {
+        boolean deleted = repository.deleteUserById(id);
+        if (deleted) {
             return true;
         }
         return false;
-
     }
 
+    @Transactional
+    public void updateUser(UserEntity user) {
+        UserEntity existingUser = repository.getUserById(user.getId());
+        if (existingUser != null) {
+            existingUser.setName(user.getName());
+            existingUser.setEmail(user.getEmail());
+            existingUser.setPhNo(user.getPhNo());
+            existingUser.setCountry(user.getCountry());
+            repository.updateUser(existingUser);
+        }
+    }
 
     public UserEntity getUserById(Long id) {
         return repository.findById(id);
-    }
-    @Transactional
-    public boolean deleteUserById(Long id) {
-        boolean deleted =repository.deleteUserById(id);
-        if (deleted){
-            return true;
-        }
-        return false;
     }
 }

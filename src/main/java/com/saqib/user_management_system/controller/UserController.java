@@ -35,50 +35,28 @@ public class UserController {
     }
 
     @GetMapping("/updateUser")
-    public String showUpdateUserForm(@RequestParam Long id, Model model) {
-        try {
-            UserEntity user = service.getUserById(id);
-            model.addAttribute("user", user);
-            return "updateUser";
-        } catch (Exception e) {
-            e.printStackTrace();
-            model.addAttribute("error", "Error retrieving user.");
-            return "errorPage";  // You can create an error page for handling errors
-        }
+    public String showUpdateForm(@RequestParam("id") Long id, Model model) {
+        UserEntity user = service.getUserById(id);
+        model.addAttribute("user", user);
+        return "updateUser";
     }
 
     @PostMapping("/updateUser")
     public String updateUser(@RequestParam("id") Long id,
-                             @RequestParam("email") String email,
                              @RequestParam("name") String name,
-                             @RequestParam("phNo") String phNo,
+                             @RequestParam("email") String email,
                              @RequestParam("country") String country,
-                             Model model) {
-        try {
-            System.out.println("id :" + id);
-            System.out.println("email :" + email);
-            System.out.println("name :" + name);
-            System.out.println("phNo :" + phNo);
-
-            // Call the service to update the user
-            boolean isUpdated = service.updateUser(id, name, email, phNo, country);
-
-            // After update, redirect to a different page (like a user list or a confirmation page)
-            if (isUpdated) {
-                List<UserEntity> list = service.getAllUsers();
-                model.addAttribute("list", list);
-                return "userList";  // Redirect to a user list or any other page after successful update
-            } else {
-                model.addAttribute("error", "Update failed");
-                return "updateUser";  // If update fails, stay on the update page
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            model.addAttribute("error", "Error updating user.");
-            return "errorPage";  // Redirect to an error page if something goes wrong
-        }
+                             @RequestParam("phNo") String phNo, Model model) {
+        UserEntity user = service.getUserById(id);
+        user.setName(name);
+        user.setEmail(email);
+        user.setCountry(country);
+        user.setPhNo(phNo);
+        model.addAttribute("message","Details Updated Successfully ");
+        service.updateUser(user);
+        return "updateUser";
     }
+
     @PostMapping("/deleteUser")
     public String deleteUser(@RequestParam("id") Long id, Model model) {
         UserEntity entity = service.getUserById(id);

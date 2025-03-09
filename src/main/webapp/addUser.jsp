@@ -8,82 +8,119 @@
     <title>Add New User</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            background: linear-gradient(to bottom right, #00aaff, #00ffaf);
         }
         .container {
             text-align: center;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            max-width: 400px;
+            padding: 30px;
+            background-color: #ffffff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            max-width: 500px;
             width: 100%;
         }
         h1 {
-            color: #333;
+            color: #0056b3;
+            margin-bottom: 20px;
+        }
+        .message {
+            color: #28a745;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
         form {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-        label {
-            font-size: 16px;
-            margin-top: 10px;
+        .form-group {
+            width: 100%;
+            margin-top: 15px;
+            position: relative;
+        }
+        .form-group label {
+            font-size: 18px;
             color: #333;
         }
-        input[type="text"], input[type="email"], input[type="tel"] {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
+        .form-group i {
+            position: absolute;
+            left: 10px;
+            top: 40px;
+            font-size: 20px;
+            color: #007bff;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"] {
+            width: calc(100% - 40px);
+            padding: 12px 20px 12px 35px;
+            margin-top: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
-        input[type="submit"] {
+        .buttons {
+            display: flex;
+            justify-content: space-between;
             margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: #fff;
+            width: 100%;
+        }
+        input[type="submit"], .main-page-btn {
+            padding: 12px 25px;
+            font-size: 18px;
+            color: #ffffff;
             background-color: #007bff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            text-decoration: none;
         }
-        input[type="submit"]:hover {
+        input[type="submit"]:hover, .main-page-btn:hover {
             background-color: #0056b3;
         }
     </style>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <h1>Add New User</h1>
         <c:if test="${not empty success}">
-           <p style="color: green;">${success}</p>
+           <p class="message">${success}</p>
         </c:if>
         <form action="submitUser" method="post">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name"  required>
+            <div class="form-group">
+                <label for="name"><i class="fas fa-user"></i> Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+            <div class="form-group">
+                <label for="email"><i class="fas fa-envelope"></i> Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
 
-            <label for="country">Country:</label>
-            <input type="text" id="location" name="country" required>
+            <div class="form-group">
+                <label for="country"><i class="fas fa-globe"></i> Country:</label>
+                <input type="text" id="location" name="country" required>
+            </div>
 
-            <label for="phone">Phone Number:</label>
-            <input type="tel" id="phone" name="phNo" required>
+            <div class="form-group">
+                <label for="phone"><i class="fas fa-phone"></i> Phone Number:</label>
+                <input type="tel" id="phone" name="phNo" required>
+            </div>
 
-            <input type="submit" value="Submit">
-            <a href="http://localhost:8080/UserManagementSystem/onLogin?email=saqib70241%40gmail.com&password=saqib">Main Page</a>
+            <div class="buttons">
+                <input type="submit" value="Submit">
+                <a href="http://localhost:8080/UserManagementSystem/onLogin?email=saqib70241%40gmail.com&password=saqib" class="main-page-btn">Main Page</a>
+            </div>
         </form>
     </div>
-
 </body>
 </html>

@@ -4,6 +4,7 @@ import com.saqib.user_management_system.entity.RegisterEntity;
 import com.saqib.user_management_system.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -96,31 +97,29 @@ public class UserRepositoryImpl implements UserRepository {
         return em.find(UserEntity.class, id);
     }
 
-    public boolean updateUserProfile(UserEntity entity) {
+    @Override
+    @Transactional
+    public void updateUser(UserEntity user) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction et = em.getTransaction();
         try {
-            Query query = em.createNamedQuery("updateUserProfileById");
-            query.setParameter("id", entity.getId());
-            query.setParameter("name", entity.getName());
-            query.setParameter("email", entity.getEmail());
-            query.setParameter("country", entity.getCountry());
-            query.setParameter("phNo", entity.getPhNo());
-            int updatedRows = query.executeUpdate();
+            et.begin();
+            em.merge(user);
             et.commit();
-            System.out.println("Rows affected: " + updatedRows);
-            return updatedRows > 0;
         } catch (Exception e) {
-            if (et.isActive()) {
-                et.rollback();
-            }
-            e.printStackTrace();
-            return false;
+            et.rollback();
+            throw e;
         } finally {
             em.close();
         }
     }
 
+    @Override
+    public UserEntity getUserById(Long id) {
+        EntityManager em = emf.createEntityManager();
+
+        return em.find(UserEntity.class, id);
+    }
 
 
     @Override
@@ -149,4 +148,7 @@ public class UserRepositoryImpl implements UserRepository {
 
         return isDeleted;
     }
+
+
+
 }

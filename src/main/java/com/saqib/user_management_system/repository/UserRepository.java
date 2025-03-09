@@ -15,6 +15,8 @@ public interface UserRepository {
 
     UserEntity findById(Long id);
 
-    boolean updateUserProfile(UserEntity entity);
+    void updateUser(UserEntity user);
     boolean deleteUserById(Long id);
+
+    UserEntity getUserById(Long id);
 }

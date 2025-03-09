@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>User Database Management</title>
 <style>
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -55,11 +55,11 @@ h1 {
 </head>
 <body>
     <div class="container">
-        <h1>Welcome to Our Platform</h1>
+        <h1>Welcome to User Database Management</h1>
         <div class="button-container">
             <a href="login.jsp" class="btn">Login</a>
             <a href="register.jsp" class="btn">Register</a>
-        </div>
+           </div>
     </div>
 </body>
 </html>
