@@ -1,3 +1,4 @@
+<%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en">
 <head>
@@ -76,6 +77,12 @@
 <body>
     <div class="container">
         <h1>User Management System</h1>
+         <c:if test="${not empty success}">
+                      <p style="color: green;">${success}</p>
+                  </c:if>
+                  <c:if test="${not empty error}">
+                      <p style="color: red;">${error}</p>
+         </c:if>
         <div class="button-container">
                     <a href="addUser.jsp" class="primary btn">Add New User</a>
         </div>
@@ -90,15 +97,23 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="user" items="${users}">
+                <c:forEach var="list" items="${list}">
                     <tr>
-                        <td>${user.name}</td>
-                        <td>${user.email}</td>
-                        <td>${user.location}</td>
-                        <td>${user.phone}</td>
+                        <td>${list.name}</td>
+                        <td>${list.email}</td>
+                        <td>${list.country}</td>
+                        <td>${list.phNo}</td>
                         <td>
-                            <button class="action-btn update-btn">Update</button><span> </span>
-                            <button class="action-btn delete-btn">Delete</button>
+                        <div class="button-container">
+
+                                        <form action="/updateUser?id=${list.id}" method="post" style="display:inline;">
+
+                                                                            <button type="submit" class="action-btn delete-btn">update</button>
+                                                                      </form>
+                            <form action="deleteUser" method="post" style="display:inline;">
+                                    <input type="hidden" name="id" value="${list.id}" />
+                                    <button type="submit" class="action-btn delete-btn">Delete</button>
+                              </form>
                         </td>
                     </tr>
                 </c:forEach>

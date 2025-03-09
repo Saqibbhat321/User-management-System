@@ -26,7 +26,7 @@ public class RegisterController {
       }
 
 
-        return "register.jsp";
+        return "register";
 
     }
 }

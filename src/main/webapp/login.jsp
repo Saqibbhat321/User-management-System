@@ -1,4 +1,3 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,13 +83,8 @@ a:hover {
 <body>
     <div class="form-container">
         <h2>Login</h2>
-      <c:if test="${not empty success}">
-              <p style="color: green;">${success}</p>
-          </c:if>
-          <c:if test="${not empty error}">
-              <p style="color: red;">${error}</p>
-          </c:if>
-        <form id="login-form" action="onLogin" method="post">
+
+        <form id="login-form" action="onLogin" method="get">
             <div class="form-group">
                 <label for="login-email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="login-email" name="email" placeholder="Enter email" required>

@@ -5,8 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New User</title>
+    <title>Update User</title>
     <style>
+        /* Your CSS Styles */
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
@@ -63,27 +64,39 @@
 </head>
 <body>
     <div class="container">
-        <h1>Add New User</h1>
-        <c:if test="${not empty success}">
-           <p style="color: green;">${success}</p>
+        <h1>Update User</h1>
+
+        <!-- Display error messages if any -->
+        <c:if test="${not empty error}">
+            <div class="alert alert-danger">${error}</div>
         </c:if>
-        <form action="submitUser" method="post">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name"  required>
 
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+        <form action="/updateUser" method="post">
+            <!-- Hidden input to store the user ID -->
+            <input type="hidden" name="id" value="${user.id}" />
 
-            <label for="country">Country:</label>
-            <input type="text" id="location" name="country" required>
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" name="name" value="${user.name}" required />
+            </div>
 
-            <label for="phone">Phone Number:</label>
-            <input type="tel" id="phone" name="phNo" required>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" name="email" value="${user.email}" required />
+            </div>
 
-            <input type="submit" value="Submit">
-            <a href="http://localhost:8080/UserManagementSystem/onLogin?email=saqib70241%40gmail.com&password=saqib">Main Page</a>
+            <div>
+                <label for="country">Country:</label>
+                <input type="text" name="country" value="${user.country}" required />
+            </div>
+
+            <div>
+                <label for="phNo">Phone Number:</label>
+                <input type="text" name="phNo" value="${user.phNo}" required />
+            </div>
+
+            <input type="submit" value="Update" />
         </form>
     </div>
-
 </body>
 </html>

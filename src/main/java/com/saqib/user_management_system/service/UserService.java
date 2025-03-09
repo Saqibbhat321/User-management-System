@@ -8,6 +8,7 @@ import com.saqib.user_management_system.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -15,6 +16,7 @@ public class UserService {
 
     @Autowired
     private UserRepository repository;
+
 
     public RegisterEntity checkLogin(String email, String password) {
 
@@ -45,6 +47,7 @@ public class UserService {
     }
 
     // ADD NEW USERS
+    @Transactional
     public boolean addUser(UserDto dto) {
 
         UserEntity entity = new UserEntity();
@@ -54,10 +57,38 @@ public class UserService {
             entity.setEmail(dto.getEmail());
             entity.setCountry(dto.getCountry());
             entity.setPhNo(dto.getPhNo());
-            boolean check = repository.saveUser(entity);
-            System.out.println("save user sach hai kya??? " + check);
+            repository.saveUser(entity);
             valid = true;
         }
         return valid;
+    }
+
+    public boolean updateUser(Long id , String name , String email , String phNo , String country) {
+
+        UserEntity entity = new UserEntity();
+        if (id != 0) {
+            entity.setId(id);
+            entity.setName(name);
+            entity.setEmail(email);
+            entity.setPhNo(phNo);
+            entity.setCountry(country);
+            repository.updateUserProfile(entity);
+            return true;
+        }
+        return false;
+
+    }
+
+
+    public UserEntity getUserById(Long id) {
+        return repository.findById(id);
+    }
+    @Transactional
+    public boolean deleteUserById(Long id) {
+        boolean deleted =repository.deleteUserById(id);
+        if (deleted){
+            return true;
+        }
+        return false;
     }
 }

@@ -8,7 +8,13 @@ import java.util.List;
 public interface UserRepository {
     void save(RegisterEntity registerEntity);
     RegisterEntity getEntityByEmail(String email);
+
     List<UserEntity> getAllUsers();
 
-    boolean saveUser(UserEntity user);
+    void saveUser(UserEntity user);
+
+    UserEntity findById(Long id);
+
+    boolean updateUserProfile(UserEntity entity);
+    boolean deleteUserById(Long id);
 }

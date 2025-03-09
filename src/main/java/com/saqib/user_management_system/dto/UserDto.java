@@ -5,13 +5,14 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
+
 public class UserDto {
 
     private Long id;
     private String name;
     private String email;
     private String country;
-    private double phNo;
+    private String phNo;
 
     // Getters and Setters
 }
